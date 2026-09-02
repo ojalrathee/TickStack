@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TickStack | Habit Stack Timer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="TickStack home"><span class="brand-mark" title="India Standard Time" aria-label="India Standard Time" role="img"><span class="clock-hand clock-hand-hour" id="clockHourHand"></span><span class="clock-hand clock-hand-minute" id="clockMinuteHand"></span></span> TickStack</a>
+      <div class="topbar-meta"><span class="live-dot"></span><span id="todayLabel">Tuesday, September 1</span></div>
+      <button class="icon-button" id="soundToggle" type="button" aria-label="Toggle sound" title="Toggle sound">Sound on</button>
+    </header>
+
+    <section class="intro" aria-labelledby="pageTitle">
+      <div>
+        <p class="eyebrow">Your tiny daily reset</p>
+        <h1 id="pageTitle">Build momentum,<br><em>one habit at a time.</em></h1>
+      </div>
+      <p class="intro-copy">Stack small actions together until the routine feels lighter than the excuse.</p>
+    </section>
+
+    <section class="workspace" aria-label="Habit routine workspace">
+      <div class="routine-panel panel">
+        <div class="panel-heading">
+          <div>
+            <span class="section-kicker">01 / Your stack</span>
+            <h2>Morning reset</h2>
+          </div>
+          <span class="duration-badge" id="totalDuration">02:00</span>
+        </div>
+        <div class="habit-list" id="habitList" aria-live="polite"></div>
+        <form class="add-habit" id="habitForm">
+          <label for="habitName" class="sr-only">Habit name</label>
+          <input id="habitName" type="text" maxlength="32" placeholder="Add a tiny habit..." autocomplete="off" required>
+          <label for="habitSeconds" class="sr-only">Duration in seconds</label>
+          <input id="habitSeconds" type="number" min="5" max="600" value="30" aria-label="Duration in seconds">
+          <span class="seconds-label">sec</span>
+          <button class="add-button" type="submit" aria-label="Add habit">+</button>
+        </form>
+        <p class="tip"><span>i</span> Keep each step small enough to begin before your brain negotiates.</p>
+      </div>
+
+      <div class="timer-panel panel" id="timerPanel">
+        <div class="timer-topline"><span class="section-kicker">02 / In the moment</span><span id="stepCount">Ready when you are</span></div>
+        <div class="timer-content">
+          <p class="up-next" id="timerStatus">Your stack is waiting</p>
+          <h2 id="activeHabit">Start your<br>routine.</h2>
+          <div class="timer-ring" id="timerRing" style="--progress: 0deg">
+            <div class="timer-center"><span id="timerValue">02:00</span><small id="timerUnit">total time</small></div>
+          </div>
+          <button class="start-button" id="startButton" type="button"><span class="play-icon">▶</span><span id="startLabel">Start routine</span></button>
+          <button class="reset-button" id="resetButton" type="button">Reset stack</button>
+        </div>
+        <div class="completion-message" id="completionMessage" hidden><strong>Stack complete.</strong> You showed up for yourself.</div>
+      </div>
+    </section>
+
+    <footer class="footer"><span>Small is a strategy.</span><span class="footer-line"></span><span id="habitCount">3 habits stacked</span></footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

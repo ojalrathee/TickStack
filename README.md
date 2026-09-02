@@ -2,6 +2,10 @@
 
 A lightweight, browser-based habit stacking timer designed to help you build momentum through short, repeatable routines. TickStack turns a set of tiny actions into a guided sequence so each task feels easier to start and easier to finish.
 
+## Live Demo
+
+https://tick-stack.vercel.app/
+
 ## Overview
 
 TickStack is a single-page web app for creating a personal “stack” of habits, each with its own duration, and running them in order like a focused reset routine. It is ideal for morning routines, desk resets, hydration checks, stretch breaks, and any micro-habit workflow that benefits from timed progress.

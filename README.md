@@ -1,6 +1,5 @@
 # TickStack
 
-A lightweight, browser-based habit stacking timer designed to help you build momentum through short, repeatable routines. TickStack turns a set of tiny actions into a guided sequence so each task feels easier to start and easier to finish.
 
 ## Live Demo
 

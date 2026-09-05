@@ -30,6 +30,8 @@ const completionMessage = document.querySelector('#completionMessage');
 const soundToggle = document.querySelector('#soundToggle');
 const clockHourHand = document.querySelector('#clockHourHand');
 const clockMinuteHand = document.querySelector('#clockMinuteHand');
+const todayLabel = document.querySelector('#todayLabel');
+const hasRoutineUi = Boolean(habitList && habitForm && totalDuration && activeHabit && timerValue && timerUnit && timerStatus && stepCount && timerRing && startButton && resetButton && completionMessage && soundToggle);
 
 function formatTime(seconds) {
   const minutes = Math.floor(seconds / 60).toString().padStart(2, '0');
@@ -42,6 +44,7 @@ function totalSeconds() {
 }
 
 function renderHabits() {
+  if (!habitList || !totalDuration || !habitCount) return;
   habitList.innerHTML = habits.map((habit, index) => `
     <div class="habit-row" style="animation-delay: ${index * 70}ms">
       <span class="habit-number">0${index + 1}</span>
@@ -59,6 +62,7 @@ function escapeHtml(value) {
 }
 
 function setTimerDisplay() {
+  if (!timerValue || !timerUnit || !timerRing) return;
   const displaySeconds = activeIndex >= 0 ? remaining : totalSeconds();
   timerValue.textContent = formatTime(displaySeconds);
   const currentHabit = habits[activeIndex];
@@ -121,6 +125,7 @@ function announceStep() {
 }
 
 function renderActiveState() {
+  if (!startButton || !startLabel || !activeHabit || !timerStatus || !stepCount) return;
   const isRunning = Boolean(timerId);
   startLabel.textContent = isRunning ? 'Pause routine' : (activeIndex >= 0 ? 'Resume routine' : 'Start routine');
   startButton.querySelector('.play-icon').textContent = isRunning ? 'Ⅱ' : '▶';
@@ -170,36 +175,49 @@ function playChime(finalChime = false) {
   oscillator.stop(audioContext.currentTime + (finalChime ? 0.45 : 0.18));
 }
 
-habitForm.addEventListener('submit', event => {
-  event.preventDefault();
-  const name = habitName.value.trim();
-  const seconds = Number(habitSeconds.value);
-  if (!name || !Number.isFinite(seconds) || seconds < 5) return;
-  habits.push({ name, seconds: Math.min(seconds, 600) });
-  habitForm.reset();
-  habitSeconds.value = 30;
-  resetRoutine();
-  renderHabits();
-  habitName.focus();
-});
+if (habitForm) {
+  habitForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const name = habitName.value.trim();
+    const seconds = Number(habitSeconds.value);
+    if (!name || !Number.isFinite(seconds) || seconds < 5) return;
+    habits.push({ name, seconds: Math.min(seconds, 600) });
+    habitForm.reset();
+    habitSeconds.value = 30;
+    resetRoutine();
+    renderHabits();
+    habitName.focus();
+  });
+}
 
-habitList.addEventListener('click', event => {
-  const button = event.target.closest('.delete-habit');
-  if (!button || habits.length === 1) return;
-  habits.splice(Number(button.dataset.index), 1);
-  resetRoutine();
-  renderHabits();
-});
+if (habitList) {
+  habitList.addEventListener('click', event => {
+    const button = event.target.closest('.delete-habit');
+    if (!button || habits.length === 1) return;
+    habits.splice(Number(button.dataset.index), 1);
+    resetRoutine();
+    renderHabits();
+  });
+}
 
-startButton.addEventListener('click', beginRoutine);
-resetButton.addEventListener('click', resetRoutine);
-soundToggle.addEventListener('click', () => {
-  audioEnabled = !audioEnabled;
-  soundToggle.textContent = audioEnabled ? 'Sound on' : 'Sound off';
-  soundToggle.setAttribute('aria-label', audioEnabled ? 'Turn sound off' : 'Turn sound on');
-});
+if (startButton) {
+  startButton.addEventListener('click', beginRoutine);
+}
+
+if (resetButton) {
+  resetButton.addEventListener('click', resetRoutine);
+}
+
+if (soundToggle) {
+  soundToggle.addEventListener('click', () => {
+    audioEnabled = !audioEnabled;
+    soundToggle.textContent = audioEnabled ? 'Sound on' : 'Sound off';
+    soundToggle.setAttribute('aria-label', audioEnabled ? 'Turn sound off' : 'Turn sound on');
+  });
+}
 
 function updateIndiaClock() {
+  if (!clockHourHand || !clockMinuteHand || !todayLabel) return;
   const now = new Date();
   const parts = new Intl.DateTimeFormat('en-US', {
     timeZone: 'Asia/Kolkata',
@@ -215,7 +233,7 @@ function updateIndiaClock() {
   const minuteAngle = (parts.minute + parts.second / 60) * 6;
   clockHourHand.style.transform = `rotate(${hourAngle}deg)`;
   clockMinuteHand.style.transform = `rotate(${minuteAngle}deg)`;
-  document.querySelector('#todayLabel').textContent = new Intl.DateTimeFormat('en-US', {
+  todayLabel.textContent = new Intl.DateTimeFormat('en-US', {
     timeZone: 'Asia/Kolkata',
     weekday: 'long',
     month: 'long',
@@ -223,7 +241,12 @@ function updateIndiaClock() {
   }).format(now);
 }
 
-updateIndiaClock();
-setInterval(updateIndiaClock, 1000);
-renderHabits();
-renderActiveState();
+if (hasRoutineUi) {
+  updateIndiaClock();
+  setInterval(updateIndiaClock, 1000);
+  renderHabits();
+  renderActiveState();
+} else {
+  updateIndiaClock();
+  setInterval(updateIndiaClock, 1000);
+}

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | TickStack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="about-page">
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="TickStack home"><span class="brand-mark" title="India Standard Time" aria-label="India Standard Time" role="img"><span class="clock-hand clock-hand-hour" id="clockHourHand"></span><span class="clock-hand clock-hand-minute" id="clockMinuteHand"></span></span> TickStack</a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link active">About</a>
+      </nav>
+      <div class="topbar-meta"><span class="live-dot"></span><span id="todayLabel">Tuesday, September 1</span></div>
+      <button class="icon-button" id="soundToggle" type="button" aria-label="Toggle sound" title="Toggle sound">Sound on</button>
+    </header>
+
+    <section class="page-intro" aria-labelledby="aboutTitle">
+      <div class="page-intro-grid">
+        <div>
+          <p class="eyebrow">About TickStack</p>
+          <h1 id="aboutTitle">A calmer way to make progress.</h1>
+        </div>
+        <div class="hero-card">
+          <span class="mini-label">Built for</span>
+          <strong>Daily momentum</strong>
+          <span>Small actions, steady rhythm, meaningful results.</span>
+        </div>
+      </div>
+      <p class="lead">TickStack is a minimalist habit timer designed to help people turn scattered intentions into a repeatable routine. It turns your day into a sequence of small, visible wins that feel manageable enough to begin.</p>
+    </section>
+
+    <section class="content-grid">
+      <article class="story-card">
+        <h2>Why it exists</h2>
+        <p>Most productivity tools either overwhelm you with complexity or ask for too much willpower before you even start. TickStack was built to solve that exact problem by giving you a simple ritual: choose what matters, assign a time, and move through it one step at a time.</p>
+        <p>The idea is not to perfect your day. It is to lower the barrier to action. A 20-second hydration check, a 60-second stretch, a quick desk reset — each one is small enough to do without negotiation and meaningful enough to compound over time.</p>
+        <p>When the routine is visible and timed, it becomes easier to follow through. The app turns intention into motion, and motion into consistency.</p>
+      </article>
+
+      <aside class="values-card" aria-labelledby="valuesTitle">
+        <h2 id="valuesTitle">Principles</h2>
+        <div class="value-list">
+          <div class="value-item">
+            <span>01 / Simple</span>
+            <strong>Uncluttered by design</strong>
+            <p>Every interaction is focused on helping you act without friction.</p>
+          </div>
+          <div class="value-item">
+            <span>02 / Human</span>
+            <strong>Made for real routines</strong>
+            <p>It supports the messy reality of busy mornings, desk days, and recovery breaks.</p>
+          </div>
+          <div class="value-item">
+            <span>03 / Consistent</span>
+            <strong>Built to repeat</strong>
+            <p>Progress comes from steady repetition, not dramatic bursts of productivity.</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="steps-card" aria-labelledby="howTitle">
+      <h2 id="howTitle">How it works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div>
+            <h3>Pick your habits</h3>
+            <p>Choose the actions that reset your focus or support your daily rhythm.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div>
+            <h3>Set the timing</h3>
+            <p>Give each habit a realistic duration so the routine feels achievable and energizing.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div>
+            <h3>Follow the stack</h3>
+            <p>Start the sequence and let the timer keep you moving without overthinking each step.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-card" aria-label="Call to action">
+      <p>Ready to start your own reset routine?</p>
+      <a class="cta-link" href="index.html">Open the timer</a>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

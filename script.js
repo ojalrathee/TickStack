@@ -163,16 +163,29 @@ function resetRoutine() {
 function playChime(finalChime = false) {
   if (!audioEnabled) return;
   audioContext ??= new AudioContext();
-  const oscillator = audioContext.createOscillator();
-  const gain = audioContext.createGain();
-  oscillator.frequency.value = finalChime ? 660 : 520;
-  oscillator.type = 'sine';
-  gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.12, audioContext.currentTime + 0.02);
-  gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + (finalChime ? 0.45 : 0.18));
-  oscillator.connect(gain).connect(audioContext.destination);
-  oscillator.start();
-  oscillator.stop(audioContext.currentTime + (finalChime ? 0.45 : 0.18));
+
+  const noteSequence = finalChime
+    ? [880, 1040, 1170]
+    : [620, 740, 830];
+  const noteDuration = finalChime ? 0.8 : 0.7;
+  const gap = finalChime ? 0.12 : 0.1;
+
+  noteSequence.forEach((frequency, index) => {
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    const startTime = audioContext.currentTime + (index * (noteDuration + gap));
+
+    oscillator.frequency.setValueAtTime(frequency, startTime);
+    oscillator.type = finalChime ? 'triangle' : 'sine';
+
+    gain.gain.setValueAtTime(0.0001, startTime);
+    gain.gain.exponentialRampToValueAtTime(finalChime ? 1.0 : 0.8, startTime + 0.04);
+    gain.gain.exponentialRampToValueAtTime(0.0001, startTime + noteDuration);
+
+    oscillator.connect(gain).connect(audioContext.destination);
+    oscillator.start(startTime);
+    oscillator.stop(startTime + noteDuration);
+  });
 }
 
 if (habitForm) {
